@@ -17,15 +17,25 @@
       </p>
     </div>
 
-    <label :for="'input' + _uid" class="form-file form-file-btn btn btn-default btn-primary" dusk="media-choose-action-button">
+    <label
+      :for="'input' + _uid"
+      class="form-file form-file-btn btn btn-default btn-primary"
+      dusk="media-choose-action-button"
+    >
       {{ chooseButtonText }}
     </label>
 
-    <button v-if="attachExistingButtonVisible" type="button" class="btn btn-default btn-primary ml-3" @click="attachExisting" dusk="media-attach-existing-button">
+    <button
+      v-if="attachExistingButtonVisible"
+      type="button"
+      class="btn btn-default btn-primary ml-3"
+      dusk="media-attach-existing-button"
+      @click="attachExisting"
+    >
       {{ __('Use existing') }}
     </button>
 
-    <progress-button v-if="mediaToUpload.length" class="ml-3" @click.native="upload" dusk="media-upload-action-button">
+    <progress-button v-if="mediaToUpload.length" class="ml-3" dusk="media-upload-action-button" @click.native="upload">
       {{ __('Upload') }}
     </progress-button>
 
@@ -103,12 +113,12 @@ export default {
 
   methods: {
     processFiles(event) {
-      [...event.target.files].forEach(file => {
+      ;[...event.target.files].forEach(file => {
         this.addMedia(UploadingFile.create(file))
       })
 
       this.showFileInput = false
-      this.$nextTick(() => this.showFileInput = true)
+      this.$nextTick(() => (this.showFileInput = true))
 
       this.autoupload()
     },
@@ -135,10 +145,12 @@ export default {
       const { field } = this.context
 
       if (!media.hasValidSize(field)) {
-        Nova.error(this.__('File :filename must be less than :size kilobytes', {
-          filename: media.fileName,
-          size: field.maxSize / 1024,
-        }))
+        Nova.error(
+          this.__('File :filename must be less than :size kilobytes', {
+            filename: media.fileName,
+            size: field.maxSize / 1024,
+          }),
+        )
         return true
       }
 
@@ -177,7 +189,6 @@ export default {
       const { attribute, value } = this.context.field
       const { resourceName, resourceId } = this.context
 
-
       for (const media of this.mediaToUpload) {
         const formData = new FormData()
 
@@ -191,9 +202,12 @@ export default {
 
         media.uploading = true
 
-        const uploadingPromise = Nova
-          .request()
-          .post(`/nova-vendor/dmitrybubyakin/nova-medialibrary-field/${resourceName}/${resourceId}/media/${attribute}`, formData, options)
+        const uploadingPromise = Nova.request()
+          .post(
+            `/nova-vendor/dmitrybubyakin/nova-medialibrary-field/${resourceName}/${resourceId}/media/${attribute}`,
+            formData,
+            options,
+          )
           .then(() => this.handleUploadSucceeded(media))
           .catch(error => this.handleUploadFailed(media, error))
 

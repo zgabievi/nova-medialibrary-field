@@ -7,7 +7,6 @@ export default class Media {
       this[key] = media[key]
     }
 
-
     this.__loading = false
     this.__updating = false
     this.__attribute = attribute
@@ -86,13 +85,12 @@ export default class Media {
   withUpdating(promise) {
     this.__updating = true
 
-    return promise.finally(() => this.__updating = false)
+    return promise.finally(() => (this.__updating = false))
   }
 
   fetch(uri) {
     return this.withLoading(
-      Nova
-        .request()
+      Nova.request()
         .get(`/nova-api/dmitrybubyakin-nova-medialibrary-media/${uri}`, { params: this.__requestParams })
         .then(response => response.data),
     )
@@ -158,11 +156,7 @@ export default class Media {
     }
 
     try {
-      await this.withUpdating(
-        Nova
-          .request()
-          .post(`/nova-api/${this.resourceName}/${this.resourceId}`, formData),
-      )
+      await this.withUpdating(Nova.request().post(`/nova-api/${this.resourceName}/${this.resourceId}`, formData))
 
       this.closeAllModals()
       this.refresh()
@@ -180,10 +174,12 @@ export default class Media {
   }
 
   async confirmDelete() {
-    await Nova.request().delete(`/nova-api/${this.resourceName}`, { params: {
-      ...this.__requestParams,
-      resources: [this.id],
-    } })
+    await Nova.request().delete(`/nova-api/${this.resourceName}`, {
+      params: {
+        ...this.__requestParams,
+        resources: [this.id],
+      },
+    })
 
     this.closeAllModals()
     this.refresh()
@@ -221,9 +217,7 @@ export default class Media {
     data = { ...data, conversion: this.cropperConversion }
 
     await this.withUpdating(
-      Nova
-        .request()
-        .post(`/nova-vendor/dmitrybubyakin/nova-medialibrary-field/${this.id}/crop`, data),
+      Nova.request().post(`/nova-vendor/dmitrybubyakin/nova-medialibrary-field/${this.id}/crop`, data),
     )
 
     this.closeAllModals()

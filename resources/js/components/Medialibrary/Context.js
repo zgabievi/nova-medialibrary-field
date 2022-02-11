@@ -64,9 +64,10 @@ export const Provider = {
       }
 
       return this.withLoading(
-        Nova
-          .request()
-          .get(`/nova-vendor/dmitrybubyakin/nova-medialibrary-field/${resourceName}/${resourceId}/media/${attribute}`, { params })
+        Nova.request()
+          .get(`/nova-vendor/dmitrybubyakin/nova-medialibrary-field/${resourceName}/${resourceId}/media/${attribute}`, {
+            params,
+          })
           .then(response => response.data.map(this.wrap)),
       )
     },

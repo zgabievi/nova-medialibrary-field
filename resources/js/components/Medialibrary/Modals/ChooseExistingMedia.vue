@@ -9,10 +9,24 @@
         <div class="bg-30 px-8 py-4 mt-6">
           <form @submit.prevent="applyFilter">
             <div class="relative h-9 flex-no-shrink">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" class="fill-current absolute search-icon-center ml-3 text-70">
-                <path fill-rule="nonzero" d="M14.32 12.906l5.387 5.387a1 1 0 0 1-1.414 1.414l-5.387-5.387a8 8 0 1 1 1.414-1.414zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                class="fill-current absolute search-icon-center ml-3 text-70"
+              >
+                <path
+                  fill-rule="nonzero"
+                  d="M14.32 12.906l5.387 5.387a1 1 0 0 1-1.414 1.414l-5.387-5.387a8 8 0 1 1 1.414-1.414zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"
+                />
               </svg>
-              <input v-model="params.name" placeholder="Search" type="search" class="appearance-none form-search w-search pl-search shadow">
+              <input
+                v-model="params.name"
+                placeholder="Search"
+                type="search"
+                class="appearance-none form-search w-search pl-search shadow"
+              >
             </div>
           </form>
         </div>
@@ -23,7 +37,12 @@
           </div>
 
           <div v-else class="mb-6">
-            <ChooseExistingMediaList :media="media" :chosen-media="chosenMedia" @choose="chooseMedia" @unchoose="unchooseMedia" />
+            <ChooseExistingMediaList
+              :media="media"
+              :chosen-media="chosenMedia"
+              @choose="chooseMedia"
+              @unchoose="unchooseMedia"
+            />
           </div>
 
           <nav class="flex justify-between items-center">
@@ -44,9 +63,7 @@
 
           <button type="button" class="btn btn-default btn-primary" @click="handleChoose">
             {{ __('Choose') }}
-            <span v-if="chosenMedia.length > 0">
-              ({{ chosenMedia.length }})
-            </span>
+            <span v-if="chosenMedia.length > 0"> ({{ chosenMedia.length }}) </span>
           </button>
         </div>
       </card>
@@ -121,16 +138,18 @@ export default {
       const { attribute } = this.field
       const { resourceName, resourceId } = this
 
-      return Nova
-        .request()
-        .get(`/nova-vendor/dmitrybubyakin/nova-medialibrary-field/${resourceName}/${resourceId}/media/${attribute}/attachable`, { params })
+      return Nova.request()
+        .get(
+          `/nova-vendor/dmitrybubyakin/nova-medialibrary-field/${resourceName}/${resourceId}/media/${attribute}/attachable`,
+          { params },
+        )
         .then(response => response.data)
     },
 
     withLoading(promise) {
       this.loading = true
 
-      return promise.finally(() => this.loading = false)
+      return promise.finally(() => (this.loading = false))
     },
 
     async processRequest(request) {
@@ -150,9 +169,7 @@ export default {
         return
       }
 
-      this.processRequest(
-        this.withLoading(this.fetch({ ...this.params, page })),
-      )
+      this.processRequest(this.withLoading(this.fetch({ ...this.params, page })))
     },
 
     gotoNextPage() {

@@ -11,7 +11,13 @@
       @start="handleDragStart"
       @end="handleDragEnd"
     >
-      <MediaListItem v-for="media in mediaList" :key="media.id" :media="media" class="m-2" dusk="nova-media-list-item" />
+      <MediaListItem
+        v-for="media in mediaList"
+        :key="media.id"
+        :media="media"
+        class="m-2"
+        dusk="nova-media-list-item"
+      />
     </Draggable>
   </div>
 </template>
@@ -41,9 +47,7 @@ export default {
       },
     },
     sortingDisabled() {
-      return this.mediaList.length <= 1
-        || this.context.field.readonly
-        || this.context.field.sortable !== true
+      return this.mediaList.length <= 1 || this.context.field.readonly || this.context.field.sortable !== true
     },
   },
 
@@ -59,8 +63,7 @@ export default {
     setNewOrder(media) {
       this.context.setMedia(media)
 
-      Nova
-        .request()
+      Nova.request()
         .post('/nova-vendor/dmitrybubyakin/nova-medialibrary-field/sort', {
           media: media.map(media => media.id),
         })

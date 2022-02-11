@@ -20,14 +20,17 @@
         'bg-info-dark-half': chosen,
       }"
     >
-      <button type="button" class="w-full h-full focus:outline-none flex items-center justify-center" @click="$emit(chosen ? 'unchoose' : 'choose')">
-        <icon
-          v-if="chosen"
-          view-box="0 0 24 24"
-          width="40"
-          height="40"
-          type="check-circle"
-          class="text-white"
+      <button
+        type="button"
+        class="w-full h-full focus:outline-none flex items-center justify-center"
+        @click="$emit(chosen ? 'unchoose' : 'choose')"
+      >
+        <icon v-if="chosen"
+              view-box="0 0 24 24"
+              width="40"
+              height="40"
+              type="check-circle"
+              class="text-white"
         />
       </button>
     </div>

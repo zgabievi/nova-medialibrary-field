@@ -41,7 +41,7 @@ export class UploadingMedia {
   }
 
   handleUploadProgress({ loaded, total }) {
-    this.uploadingProgress = Math.round(loaded / total * 100)
+    this.uploadingProgress = Math.round((loaded / total) * 100)
   }
 
   handleUploadFailed(error) {
@@ -55,14 +55,11 @@ export class UploadingMedia {
   }
 
   hasValidSize(field) {
-    return field.maxSize !== undefined
-      ? field.maxSize >= this.size
-      : true
+    return field.maxSize !== undefined ? field.maxSize >= this.size : true
   }
 }
 
-export class UploadingFile extends UploadingMedia
-{
+export class UploadingFile extends UploadingMedia {
   constructor(props) {
     super(props)
 
@@ -70,7 +67,9 @@ export class UploadingFile extends UploadingMedia
   }
 
   static create(file) {
-    const id = Math.random().toString(36).substr(-8)
+    const id = Math.random()
+      .toString(36)
+      .substr(-8)
 
     return new UploadingFile({
       file,
@@ -87,8 +86,7 @@ export class UploadingFile extends UploadingMedia
   }
 }
 
-export class UploadingExistingMedia extends UploadingMedia
-{
+export class UploadingExistingMedia extends UploadingMedia {
   constructor(props) {
     super(props)
 

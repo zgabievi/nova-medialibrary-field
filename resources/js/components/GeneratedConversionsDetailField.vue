@@ -1,7 +1,12 @@
 <template>
   <panel-item :field="field">
     <div slot="value" class="flex flex-wrap -m-2">
-      <div v-for="(url, name) in conversions" :key="name" v-tooltip="tooltip(name)" class="relative group flex m-2 rounded-full overflow-hidden">
+      <div
+        v-for="(url, name) in conversions"
+        :key="name"
+        v-tooltip="tooltip(name)"
+        class="relative group flex m-2 rounded-full overflow-hidden"
+      >
         <img :src="url" :alt="name" class="w-16 h-16 object-cover">
         <div class="group-hover:block hidden absolute pin bg-overlay">
           <div class="flex items-center justify-center h-full">
@@ -30,12 +35,14 @@ export default {
 
   methods: {
     tooltip(name) {
-      return this.field.withTooltips ? {
-        classes: 'medialibrary-tooltip bg-white p-2 rounded border border-50 shadow text-sm leading-normal',
-        content: name,
-        offset: 10,
-        placement: 'bottom',
-      } : null
+      return this.field.withTooltips
+        ? {
+          classes: 'medialibrary-tooltip bg-white p-2 rounded border border-50 shadow text-sm leading-normal',
+          content: name,
+          offset: 10,
+          placement: 'bottom',
+        }
+        : null
     },
 
     async copy(url) {

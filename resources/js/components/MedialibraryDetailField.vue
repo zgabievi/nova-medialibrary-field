@@ -1,7 +1,12 @@
 <template>
   <panel-item :field="field">
     <div slot="value">
-      <MedialibraryField :add-files="canAddFiles" :field="field" :resource-name="resourceName" :resource-id="resourceId" />
+      <MedialibraryField
+        :add-files="canAddFiles"
+        :field="field"
+        :resource-name="resourceName"
+        :resource-id="resourceId"
+      />
     </div>
   </panel-item>
 </template>

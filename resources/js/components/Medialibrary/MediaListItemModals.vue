@@ -1,5 +1,8 @@
 <template>
-  <portal v-if="media.deleteModalOpen || media.detailModalOpen || media.updateModalOpen || media.cropperModalOpen" to="modals">
+  <portal
+    v-if="media.deleteModalOpen || media.detailModalOpen || media.updateModalOpen || media.cropperModalOpen"
+    to="modals"
+  >
     <delete-resource-modal
       v-if="media.deleteModalOpen"
       mode="delete"
